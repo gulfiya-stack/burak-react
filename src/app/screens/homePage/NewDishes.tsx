@@ -29,9 +29,10 @@ export default function NewDishes() {
                 newDishes.map((ele, index) => {
                   return (
                     <Card key={index} variant="outlined" className={"card"}>
+                      {/*  CardOverflow ->  padding ni yutadi ; rasm atrofida bo'sh joy*/}
                       <CardOverflow>
                         <div className="product-sale">Normal size</div>
-                        <AspectRatio ratio="1">
+                        <AspectRatio ratio="1">{/** Asl width height ni saqlab ko'rsatadi; probel ratiodan keyin 1chi child bo'ladi olib tashladik */}
                           <img src={ele.imagePath} alt="" />
                         </AspectRatio>
                       </CardOverflow>

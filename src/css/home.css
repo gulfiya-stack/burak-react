@@ -90,11 +90,9 @@
 }
 
 .homepage .popular-dishes-frame .cards-frame .card .card-cover {
-  background: linear-gradient(
-      to top,
+  background: linear-gradient(to top,
       rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0) 200px
-    ),
+      rgba(0, 0, 0, 0) 200px),
     linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 300px);
 }
 
@@ -120,11 +118,15 @@
   height: 605px;
   background: #f8f8ff;
   display: flex;
+  /*Stack o'zi flex; display flex o'zgartmadi*/
 }
 
 .homepage .main {
   margin-top: 45px;
+  /*fresh menu ustida */
   display: flex;
+  /* display: flex matn (“Normal size”) ni yorliq ichida gorizontal va vertikal o’rtaga qo’yish uchun kerak. ishlamaydi */
+  /*align-items --> vertical; justify-content --> horizontal*/
   flex-direction: column;
   align-items: center;
 }
