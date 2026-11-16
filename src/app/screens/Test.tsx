@@ -21,17 +21,17 @@ class Test extends Component {
     });
   };
 
-  // componentDidMount() {
-  //   console.log("componentDidMount");
-  //   // runs after first render => RETRIEVE DATA FROM BACKEND SERVER
-  // }
+  componentDidMount() {
+    console.log("componentDidMount");
+    // runs after first render => RETRIEVE DATA FROM BACKEND SERVER
+  }
 
-  // componentWillUnmount() {
-  //   console.log("componentWillUnmount");
-  //   // runs before component unmount
-  // }
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+    // runs before component unmount
+  }
 
-  // componentDidUpdate() { }
+  componentDidUpdate() { }
 
   render() {
     return (
