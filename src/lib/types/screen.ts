@@ -4,7 +4,7 @@ import { Member } from "./member";
 import { Product } from "./product";
 
 export interface AppRootState {
-    homepage: HomePageState;
+    homePage: HomePageState;
     // productsPage: ProductsPageState;
 }
 
