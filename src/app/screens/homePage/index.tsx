@@ -14,6 +14,7 @@ import { setPopularDishes } from "./slice";
 import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { create } from "domain";
+import { serverApi } from "../../../lib/config";
 
 
 /** REDUX SLICE & SELECTOR */
@@ -25,6 +26,8 @@ export default function HomePage() {
   // Selector => Data
   const { setPopularDishes } = actionDispatch(useDispatch());
   const { popularDishes } = useSelector(popularDishesRetriever);
+
+  console.log(serverApi); //process env variable const
 
   useEffect(() => {
 
