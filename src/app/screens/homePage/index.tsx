@@ -5,25 +5,24 @@ import NewDishes from "./NewDishes";
 import Advertisement from "./Advertisement";
 import ActiveUsers from "./ActiveUsers";
 import Events from "./Events";
-import "../../../css/home.css";
-
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setPopularDishes } from "./slice";
+import { setPopularDishes, setNewDishes } from "./slice";
 import { Product } from "../../../lib/types/product";
 import { create } from "domain";
 import { serverApi } from "../../../lib/config";
 import ProductService from "../../services/Product.Service";
 import { ProductCollection } from "../../../lib/enums/product.enum";
-
+import "../../../css/home.css";
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
+  setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
 });
 export default function HomePage() {
   // Selector => Data
-  const { setPopularDishes } = actionDispatch(useDispatch());
+  const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch());
 
   console.log(serverApi); //process env variable const
 
@@ -37,11 +36,24 @@ export default function HomePage() {
       productCollection: ProductCollection.DISH,
     })
       .then((data) => {
-        console.log("data passed here: ", data);
+        console.log("Pop dishes data passed here: ", data);
         setPopularDishes(data);
       })
       .catch((err) => console.log(err));
+
+    product.getProducts({
+      page: 1,
+      limit: 4,
+      order: 'createdAt',
+      // productCollection: ProductCollection.DISH,
+    })
+      .then((data) => {
+        console.log("New dishes data passed here: ", data);
+        setNewDishes(data);
+      })
+      .catch((err) => console.log(err));
   }, []);
+
 
   return (
     <div className={"homepage"}>

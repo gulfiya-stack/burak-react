@@ -8,15 +8,20 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Divider from "../../components/divider";
 // Hard code
-const newDishes = [
-  { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Lavash", imagePath: "/img/lavash.webp" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveNewDishes } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+
+const newDishesRetriever = createSelector(
+  retrieveNewDishes,
+  (newDishes) => ({ newDishes }));
 
 export default function NewDishes() {
-  console.log("newDishes:", newDishes);
+  const { newDishes } = useSelector(newDishesRetriever);
+  console.log("Selector: newDishes:", newDishes);
 
   return (
     <div className={"new-products-frame"}>
@@ -26,14 +31,19 @@ export default function NewDishes() {
           <Stack className={"cards-frame"}>
             <CssVarsProvider>
               {newDishes.length !== 0 ? (
-                newDishes.map((ele, index) => {
+                newDishes.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + ' LITER'
+                      : product.productSize + " SIZE"
                   return (
-                    <Card key={index} variant="outlined" className={"card"}>
+                    <Card key={product._id} variant="outlined" className={"card"}>
                       {/*  CardOverflow ->  padding ni yutadi ; rasm atrofida bo'sh joy*/}
                       <CardOverflow>
-                        <div className="product-sale">Normal size</div>
+                        <div className="product-sale">{sizeVolume}</div>
                         <AspectRatio ratio="1">{/** Asl width height ni saqlab ko'rsatadi; probel ratiodan keyin 1chi child bo'ladi olib tashladik */}
-                          <img src={ele.imagePath} alt="" />
+                          <img src={imagePath} alt="" />
                         </AspectRatio>
                       </CardOverflow>
 
@@ -51,14 +61,14 @@ export default function NewDishes() {
                               }}
                               noWrap
                             >
-                              {ele.productName}
+                              {product.productName}
                             </Typography>
                             <Divider width="2" height="24" bg="#d9d9d9" />
-                            <Typography className={"price"}>$12</Typography>
+                            <Typography className={"price"}>${product.productPrice}</Typography>
                           </Stack>
                           <Stack>
                             <Typography className={"views"}>
-                              20
+                              {product.productViews}
                               <VisibilityIcon
                                 sx={{ fontSize: 20, marginLeft: "5px" }}
                               />
