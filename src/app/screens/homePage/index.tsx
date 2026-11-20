@@ -7,27 +7,29 @@ import ActiveUsers from "./ActiveUsers";
 import Events from "./Events";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setPopularDishes, setNewDishes } from "./slice";
+import { setPopularDishes, setNewDishes, setTopUsers } from "./slice";
 import { Product } from "../../../lib/types/product";
-import { create } from "domain";
 import { serverApi } from "../../../lib/config";
 import ProductService from "../../services/Product.Service";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import "../../../css/home.css";
+import { Member } from "../../../lib/types/member";
+import MemberService from "../../services/MemberService";
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
+  setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
 });
 export default function HomePage() {
   // Selector => Data
-  const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch());
+  const { setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(useDispatch());
 
   console.log(serverApi); //process env variable const
 
   useEffect(() => {
-    const product = new ProductService;
+    const product = new ProductService();
 
     product.getProducts({
       page: 1,
@@ -35,10 +37,7 @@ export default function HomePage() {
       order: 'productViews',
       productCollection: ProductCollection.DISH,
     })
-      .then((data) => {
-        console.log("Pop dishes data passed here: ", data);
-        setPopularDishes(data);
-      })
+      .then((data) => setPopularDishes(data))
       .catch((err) => console.log(err));
 
     product.getProducts({
@@ -47,10 +46,15 @@ export default function HomePage() {
       order: 'createdAt',
       // productCollection: ProductCollection.DISH,
     })
-      .then((data) => {
-        console.log("New dishes data passed here: ", data);
-        setNewDishes(data);
-      })
+      .then((data) => setNewDishes(data))
+      .catch((err) => console.log(err));
+
+
+
+    const member = new MemberService();
+
+    member.getTopUsers()
+      .then((data) => setTopUsers(data))
       .catch((err) => console.log(err));
   }, []);
 
