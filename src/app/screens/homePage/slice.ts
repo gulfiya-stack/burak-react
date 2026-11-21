@@ -8,7 +8,7 @@ const initialState: HomePageState = {
 
 };
 
-const homePageSlice = createSlice({
+const homePageSlice = createSlice({ //Use Effectdan keyin
     name: "homePage",
     initialState,
     reducers: {

@@ -13,7 +13,7 @@ export interface AppRootState {
     “AppRootState obyektida homePage degan maydon bor. 
     Uning turi HomePageState.”
     */
-    // productsPage: ProductsPageState;
+    productsPage: ProductsPageState;
 }
 
 
@@ -27,7 +27,11 @@ export interface HomePageState {
 }
 
 /** PRODUCTS PAGE **/
-
+export interface ProductsPageState {
+    restaurant: Member | null;
+    products: Product[];
+    chosenProduct: Product | null;
+}
 /** ORDERS PAGE **/
 
 
