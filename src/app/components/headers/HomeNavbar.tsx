@@ -2,26 +2,31 @@ import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import React, { useEffect, useState } from "react";
+import { CartItem } from "../../../lib/types/search";
 
-export default function HomeNavbar() {
+interface HomeNavbarProps {
+  cartItems: CartItem[];
+}
+
+export default function HomeNavbar(props: HomeNavbarProps) {
+  const { cartItems } = props;
   const authMember = null;
-  const [count, setCount] = useState<number>(0);
-  const [value, setvalue] = useState<boolean>(true);
+  // const [count, setCount] = useState<number>(0);
+  // const [value, setvalue] = useState<boolean>(true);
 
-  useEffect(() => {
-    console.log("componentDidMount: ", count); // DATA FETCH
-    setCount(count + 1);
-    return () => {
-      console.log("componentWillUnmount");
-    };
+  // useEffect(() => {
+  //   console.log("componentDidMount: ", count); // DATA FETCH
+  //   setCount(count + 1);
+  //   return () => {
+  //     console.log("componentWillUnmount");
+  //   };
 
-  }, [value]);
+  // }, [value]);
 
   /**  Handlers  **/
 
-  const buttonHandler = () => {
-    setvalue(!value);
-  }
+  // const buttonHandler = () => {
+  //   setvalue(!value); }
   return (
     <div className="home-navbar">
       <Container className="navbar-container">
@@ -61,7 +66,7 @@ export default function HomeNavbar() {
                 Help
               </NavLink>
             </Box>
-            <Basket />
+            <Basket cartItems={cartItems} />
 
             {!authMember ? (
               <Box>
@@ -84,10 +89,11 @@ export default function HomeNavbar() {
               World's Most Delicious Cousine
             </Box>
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-            <Box className={"service-txt"}>{count} hours service</Box>
+            <Box className={"service-txt"}>24 hours service</Box>
             <Box className={"signup"}>
               {!authMember ? (
-                <Button variant={"contained"} className={"signup-button"} onClick={buttonHandler}>
+                <Button variant={"contained"} className={"signup-button"}>
+                  {/* onClick={buttonHandler} */}
                   {/* onClick={() => setCount(count + 1)} */}
                   {/* onClick={() => buttonHandler()} */}
                   SIGN UP

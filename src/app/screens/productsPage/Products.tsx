@@ -19,6 +19,7 @@ import ProductService from "../../services/Product.Service";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../lib/types/search";
 
 
 
@@ -36,12 +37,17 @@ const productsRetriever = createSelector(
 
 
 
+export interface ProductsProps {
+  onAdd: (item: CartItem) => void;
+}
 
 
+export default function Products(props: ProductsProps) {
+  const { onAdd } = props;
 
-export default function Products() {
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productsRetriever);
+
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
     page: 1,
     limit: 8,
@@ -233,7 +239,20 @@ export default function Products() {
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className={"product-sale"}>{sizeVolume}</div>
-                        <Button className={"shop-btn"}>
+                        <Button
+                          className={"shop-btn"}
+                          onClick={(e) => {
+                            console.log("BUTTON PRESSED");
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            }
+                            );
+                            e.stopPropagation();
+                          }}>
                           <img
                             src={"/icons/shopping-cart.svg"}
                             style={{ display: "flex" }}
