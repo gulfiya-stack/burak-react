@@ -8,6 +8,34 @@ import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
 import "../../../css/order.css";
+import { Order } from "../../../lib/types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { retrieveFinishedOrders, retrievePausedOrders, retrieveProcessOrders } from "./selector";
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+
+/** REDUX SLICE & SELECTOR */
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
+
+
+
+const pausedOrdersRetriever = createSelector(
+  retrievePausedOrders,
+  (pausedOrders) => ({ pausedOrders }));
+
+const processOrdersRetriever = createSelector(
+  retrieveProcessOrders,
+  (processOrders) => ({ processOrders }));
+
+const finishedOrdersRetriever = createSelector(
+  retrieveFinishedOrders,
+  (finishedOrders) => ({ finishedOrders }));
+
 
 export default function OrdersPage() {
   const [value, setValue] = useState("1");
@@ -15,6 +43,16 @@ export default function OrdersPage() {
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } = actionDispatch(useDispatch());
+
+  // const { pausedOrders } = useSelector(pausedOrdersRetriever);
+  // const { processOrders } = useSelector(processOrdersRetriever);
+  // const { finishedOrders } = useSelector(finishedOrdersRetriever);
+
+  /** HANDLERS */
+
+
 
   return (
     <div className={"order-page"}>
