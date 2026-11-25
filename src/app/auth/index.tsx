@@ -11,6 +11,7 @@ import { Messages } from "../../lib/config";
 import { LoginInput, MemberInput } from "../../lib/types/member";
 import MemberService from "../services/MemberService";
 import { sweetErrorHandling } from "../../lib/sweetAlert";
+import { useGlobals } from "../hooks/useGlobals";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -42,28 +43,36 @@ interface AuthenticationModalProps {
   handleLoginClose: () => void;
 }
 
-export default function AuthenticationModal(props: AuthenticationModalProps) {
-  const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
+export default function AuthenticationModal(
+  props: AuthenticationModalProps
+) {
+  const {
+    signupOpen,
+    loginOpen,
+    handleSignupClose,
+    handleLoginClose,
+  } = props;
+
   const classes = useStyles();
 
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
 
+  const { setAuthMember } = useGlobals();
+
   /** HANDLERS **/
 
   const handleUserName = (e: T) => {
-    console.log(e.target.value);
     setMemberNick(e.target.value);
   };
+
   const handlePhone = (e: T) => {
-    console.log(e.target.value);
     setMemberPhone(e.target.value);
   };
-  const handlePassword = (e: T) => {
-    console.log(e.target.value);
-    setMemberPassword(e.target.value);
 
+  const handlePassword = (e: T) => {
+    setMemberPassword(e.target.value);
   };
 
   const handlePasswordKeyDown = (e: T) => {
@@ -76,46 +85,48 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     }
   };
 
-  const closeSignup = () => {
-    setMemberNick("");
-    setMemberPhone("");
-    setMemberPassword("");
-
-    handleSignupClose();
-  };
+  /** SIGNUP **/
 
   const handleSignupRequest = async () => {
     try {
-      console.log("inputs: ", memberNick, memberPhone, memberPassword);
-      const isFulfill = memberNick !== "" && memberPhone !== "" && memberPassword !== "";
+      const isFulfill =
+        memberNick !== "" &&
+        memberPhone !== "" &&
+        memberPassword !== "";
+
       if (!isFulfill) {
         throw new Error(Messages.error3);
       }
 
       const signupInput: MemberInput = {
-        memberNick,
-        memberPhone,
-        memberPassword,
+        memberNick: memberNick,
+        memberPhone: memberPhone,
+        memberPassword: memberPassword,
       };
 
       const member = new MemberService();
-      await member.signup(signupInput);
-      // SAVING AUTHNETICATED USER
-      closeSignup(); // Muvaffaqiyatli bo‘lsa yopamiz
+      const result = await member.signup(signupInput);
+
+      // SAVING AUTHENTICATED USER
+      setAuthMember(result);
+      handleSignupClose();
     } catch (err) {
       console.log("SIGNUP ERROR:", err);
-
-      // Validation xatosida modal ochiq qoladi
       await sweetErrorHandling(err);
     }
   };
 
+  /** LOGIN **/
+
   const handleLoginRequest = async () => {
     try {
       const isFulfill =
-        memberNick !== "" && memberPassword !== "";
+        memberNick !== "" &&
+        memberPassword !== "";
 
-      if (!isFulfill) throw new Error(Messages.error3);
+      if (!isFulfill) {
+        throw new Error(Messages.error3);
+      }
 
       const loginInput: LoginInput = {
         memberNick: memberNick,
@@ -124,22 +135,27 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
       const member = new MemberService();
       const result = await member.login(loginInput);
+
+      // SAVING AUTHENTICATED USER
+      setAuthMember(result);
       handleLoginClose();
-    }
-    catch (err) {
-      console.log(err);
-      handleLoginClose();
-      sweetErrorHandling(err).then();
+
+    } catch (err) {
+      console.log("LOGIN ERROR:", err);
+      await sweetErrorHandling(err);
     }
   };
+
   return (
     <div>
+      {/* SIGNUP MODAL */}
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
         open={signupOpen}
-        onClose={closeSignup}
+        onClose={handleSignupClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -153,47 +169,61 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             sx={{ width: "800px" }}
           >
             <ModalImg src={"/img/auth.webp"} alt="camera" />
-            <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
+
+            <Stack
+              sx={{
+                marginLeft: "69px",
+                alignItems: "center",
+              }}
+            >
               <h2>Signup Form</h2>
+
               <TextField
                 sx={{ marginTop: "7px" }}
-                id="outlined-basic"
+                id="signup-username"
                 label="username"
                 variant="outlined"
                 value={memberNick}
                 onChange={handleUserName}
               />
+
               <TextField
                 sx={{ my: "17px" }}
-                id="outlined-basic"
+                id="signup-phone"
                 label="phone number"
                 variant="outlined"
                 value={memberPhone}
                 onChange={handlePhone}
               />
+
               <TextField
-                id="outlined-basic"
+                id="signup-password"
                 label="password"
                 variant="outlined"
+                type="password"
                 value={memberPassword}
                 onChange={handlePassword}
                 onKeyDown={handlePasswordKeyDown}
               />
+
               <Fab
-                sx={{ marginTop: "30px", width: "120px" }}
+                sx={{
+                  marginTop: "30px",
+                  width: "120px",
+                }}
                 variant="extended"
                 color="primary"
                 onClick={handleSignupRequest}
               >
-                <LoginIcon sx={{ mr: 1 }}
-
-                />
+                <LoginIcon sx={{ mr: 1 }} />
                 Signup
               </Fab>
             </Stack>
           </Stack>
         </Fade>
       </Modal>
+
+      {/* LOGIN MODAL */}
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -214,6 +244,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             sx={{ width: "700px" }}
           >
             <ModalImg src={"/img/auth.webp"} alt="camera" />
+
             <Stack
               sx={{
                 marginLeft: "65px",
@@ -222,25 +253,33 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
               }}
             >
               <h2>Login Form</h2>
+
               <TextField
-                id="outlined-basic"
+                id="login-username"
                 label="username"
                 variant="outlined"
                 sx={{ my: "10px" }}
+                value={memberNick}
                 onChange={handleUserName}
               />
+
               <TextField
-                id={"outlined-basic"}
-                label={"password"}
-                variant={"outlined"}
-                type={"password"}
+                id="login-password"
+                label="password"
+                variant="outlined"
+                type="password"
+                value={memberPassword}
                 onChange={handlePassword}
                 onKeyDown={handlePasswordKeyDown}
               />
+
               <Fab
-                sx={{ marginTop: "27px", width: "120px" }}
-                variant={"extended"}
-                color={"primary"}
+                sx={{
+                  marginTop: "27px",
+                  width: "120px",
+                }}
+                variant="extended"
+                color="primary"
                 onClick={handleLoginRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
@@ -253,4 +292,3 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     </div>
   );
 }
-
