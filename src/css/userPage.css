@@ -2,7 +2,7 @@
 	width: 100%;
 	height: auto;
 	display: flex;
-	background: #f8f8ff;
+	background: var(--obsidian);
 }
 
 .user-page .css-heg063-MuiTabs-flexContainer {
@@ -38,12 +38,12 @@
 	height: 70px;
 	display: flex;
 	justify-content: center;
-	border-bottom: 1px solid #f8f8ff;
-	font-family: 'Poppins';
+	border-bottom: 1px solid var(--edge);
+	font-family: var(--editorial);
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 400;
 	font-size: 45px;
-	color: #f8f8ff;
+	color: var(--ivory);
 }
 
 .my-page-left .menu-content {
@@ -86,8 +86,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: #f6f2ff;
-	box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25), inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
+	background: var(--panel);
+	box-shadow: var(--surface-shadow);
 	border-radius: 16px;
 }
 
@@ -126,21 +126,21 @@
 
 .user-page .order-info-box .order-user-name {
 	margin-top: 10px;
-	font-family: 'Commissioner';
+	font-family: var(--menu-type);
 	font-style: normal;
 	font-weight: 500;
 	font-size: 28px;
 	line-height: 36px;
-	color: #08090d;
+	color: var(--ivory);
 }
 
 .user-page .order-info-box .order-user-prof {
-	font-family: 'Commissioner';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 500;
 	font-size: 20px;
 	line-height: 36px;
-	color: #a1a1a1;
+	color: var(--muted);
 }
 
 .user-page .order-info-box .user-media-box {
@@ -156,12 +156,12 @@
 	width: 90%;
 	display: flex;
 	justify-content: center;
-	font-family: 'DM Sans';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 24px;
-	color: #616164;
+	color: var(--muted);
 }
 
 .user-page .order-info-box .css-1e3kzd4-MuiButtonBase-root-MuiButton-root {
@@ -173,7 +173,7 @@
 	font-weight: 600;
 	font-size: 25px;
 	line-height: 38px;
-	color: #f8f8ff;
+	color: var(--ivory);
 }
 
 .user-page .menu-box img {
@@ -182,12 +182,12 @@
 
 .user-page .menu-box span {
 	margin-left: 30px;
-	font-family: 'Poppins';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 600;
 	font-size: 25px;
 	line-height: 38px;
-	color: #000000;
+	color: var(--ivory);
 }
 
 .user-page .settings {
@@ -219,12 +219,12 @@
 	flex-direction: column;
 }
 .user-page .settings .spec-label {
-	font-family: 'Source Serif Pro';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 25px;
-	color: #f8f8ff;
+	color: var(--ivory);
 }
 
 .user-page .settings .spec-input {
@@ -234,15 +234,15 @@
 	width: 100%;
 	height: 54px;
 	border: none;
-	background: #f7f7f7;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background: var(--field);
+	box-shadow: var(--surface-shadow);
 	border-radius: 5px;
-	font-family: 'GT Walsheim Pro';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 26px;
-	color: #4f547b;
+	color: var(--ivory);
 }
 
 .user-page .settings .spec-textarea {
@@ -252,15 +252,15 @@
 	width: 100%;
 	height: 200px;
 	border: none;
-	background: #f7f7f7;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background: var(--field);
+	box-shadow: var(--surface-shadow);
 	border-radius: 5px;
-	font-family: 'GT Walsheim Pro';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 26px;
-	color: #4f547b;
+	color: var(--ivory);
 }
 
 .user-page .settings .member-media-frame {
@@ -289,22 +289,22 @@
 }
 
 .user-page .settings .media-change-box span {
-	font-family: 'GT Walsheim Pro';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 18px;
-	color: #140342;
+	color: var(--ivory);
 }
 
 .user-page .settings .media-change-box p {
 	margin: 10px 0px 14px 0px;
-	font-family: 'GT Walsheim Pro';
+	font-family: var(--ui);
 	font-style: normal;
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 16px;
-	color: #4f547b;
+	color: var(--ivory);
 }
 
 .user-page .settings .up-del-box {
@@ -312,7 +312,7 @@
 	width: 37px;
 	height: 37px;
 	display: flex;
-	background: #cbcbcb;
+	background: var(--champagne);
 	border-radius: 8px;
 	justify-content: center;
 	align-items: center;
@@ -323,7 +323,7 @@
 	width: 20px;
 	height: 16px;
 	padding: 0;
-	background: red;
+	background: var(--field);
 	margin: -1px;
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
@@ -335,3 +335,9 @@
 	justify-content: flex-end;
 	margin-top: 25px;
 }
+
+.user-page .settings :is(.spec-input, .spec-textarea):focus {
+  box-shadow: inset 0 0 0 1px var(--champagne);
+}
+
+.user-page .settings .save-box button { letter-spacing: 1.08px; }

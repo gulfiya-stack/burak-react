@@ -8,7 +8,7 @@
 .homepage .static-frame {
   width: 100%;
   height: 236px;
-  background: #343434;
+  background: var(--panel);
 }
 
 .homepage .static-frame .info {
@@ -30,22 +30,22 @@
 
 .homepage .static-frame .info .static-box .static-num {
   text-align: center;
-  font-family: "Poppins";
+  font-family: var(--display);
   font-size: 54px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 80px;
-  color: #d7b686;
+  color: var(--champagne);
 }
 
 .homepage .static-frame .info .static-box .static-text {
   text-align: center;
-  font-family: "Poppins";
+  font-family: var(--ui);
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: 30px;
-  color: #d7b586;
+  color: var(--ivory);
 }
 
 /** POPULAR DISHES **/
@@ -54,7 +54,7 @@
   width: 100%;
   height: 580px;
   display: flex;
-  background: #f8f8ff;
+  background: var(--obsidian);
 }
 
 .homepage .popular-dishes-frame .popular-section {
@@ -66,13 +66,13 @@
 
 .homepage .popular-dishes-frame .popular-section .category-title {
   text-align: center;
-  font-family: "Roboto Serif";
-  font-size: 36px;
+  font-family: var(--editorial);
+  font-size: 46px;
   font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  font-weight: 400;
+  line-height: 42px;
   letter-spacing: 1.44px;
-  color: #000;
+  color: var(--ivory);
 }
 
 .homepage .popular-dishes-frame .popular-section .cards-frame {
@@ -85,7 +85,9 @@
 
 .homepage .popular-dishes-frame .cards-frame .card {
   min-height: 430px;
-  min-width: 300px;
+  row-gap: 0;
+  flex: 0 0 300px;
+  min-width: 0;
   cursor: pointer;
 }
 
@@ -103,12 +105,12 @@
   justify-content: center;
   align-items: center;
   text-transform: capitalize;
-  font-family: "Poppins";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 34px;
-  color: #e3c08d;
+  color: var(--champagne);
 }
 
 /** NEW PRODUCTS **/
@@ -116,7 +118,7 @@
 .homepage .new-products-frame {
   width: 100%;
   height: 605px;
-  background: #f8f8ff;
+  background: var(--obsidian);
   display: flex;
   /*Stack o'zi flex; display flex o'zgartmadi*/
 }
@@ -132,10 +134,10 @@
 }
 
 .homepage .new-products-frame .category-title {
-  font-family: "Dancing Script";
+  font-family: var(--editorial);
   font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
+  font-weight: 400;
+  font-size: 47.4px;
   line-height: 43px;
 }
 
@@ -147,7 +149,7 @@
 }
 
 .homepage .new-products-frame .main .card {
-  height: 335px;
+  height: auto;
   width: 290px;
   cursor: pointer;
 }
@@ -161,51 +163,48 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff9200;
-  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  font-family: "Poppins";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 21px;
-  color: #f8f8ff;
 }
 
 .homepage .new-products-frame .product-detail {
   width: auto;
-  height: 49%;
-  display: flex;
-  justify-content: center;
-  margin-top: -12px;
+  padding: 0;
+  margin-top: auto;
   border-top: 1px solid;
-  border-color: #f8f8ff;
-  background-color: #fafbfb;
+  border-color: var(--edge);
+  background-color: var(--cognac);
 }
 
 .homepage .new-products-frame .product-detail .info {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
 }
 
+.homepage .new-products-frame .info > .MuiStack-root { display: contents; }
+
 .homepage .new-products-frame .product-detail .title {
-  width: 65px;
-  font-weight: 500;
+  grid-column: 1 / -1;
+  margin: 0;
 }
 
 .homepage .new-products-frame .product-detail .price {
-  margin-left: 10px;
-  width: 20px;
+  grid-column: 1;
+  grid-row: 2;
+  padding: 6px 14px;
   font-weight: 500;
 }
 
 .homepage .new-products-frame .product-detail .divider {
   margin: 0 10px 0 10px;
   width: 2px;
-  background-color: #d9d9d9;
+  background-color: var(--edge);
 }
 
 .homepage .new-products-frame .product-detail .views {
@@ -221,12 +220,12 @@
   justify-content: center;
   align-items: center;
   text-transform: capitalize;
-  font-family: "Poppins";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 34px;
-  color: #e3c08d;
+  color: var(--champagne);
 }
 
 /** ADVERTISEMENT **/
@@ -237,14 +236,14 @@
   display: flex;
   overflow: hidden;
   transform: perspective(0px);
-  box-shadow: -3px 0px 20px 14px #34343480;
+  box-shadow: var(--surface-shadow);
 }
 
 .homepage .ads-restaurant-frame .ads-video {
   width: 100%;
-  background: #0c0e12;
+  background: var(--obsidian);
   display: flex;
-  box-shadow: 0px -8px 90px rgb(215 215 255);
+  box-shadow: var(--surface-shadow);
   transform: scale(1.5);
   overflow: hidden;
 }
@@ -254,7 +253,7 @@
 .homepage .active-users-frame {
   width: 100%;
   height: 550px;
-  background: #f8f8ff;
+  background: var(--obsidian);
   display: flex;
 }
 
@@ -266,10 +265,10 @@
 }
 
 .homepage .active-users-frame .category-title {
-  font-family: "Dancing Script";
+  font-family: var(--editorial);
   font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
+  font-weight: 400;
+  font-size: 48.6px;
   line-height: 43px;
 }
 
@@ -298,12 +297,12 @@
   justify-content: center;
   align-items: center;
   text-transform: capitalize;
-  font-family: "Poppins";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 34px;
-  color: #e3c08d;
+  color: var(--champagne);
 }
 
 /** EVENTS **/
@@ -311,15 +310,15 @@
 .homepage .events-frame {
   width: 100%;
   height: 745px;
-  background: #f8f8ff;
+  background: var(--obsidian);
   display: flex;
 }
 
 .homepage .events-frame .category-title {
-  font-family: "Dancing Script";
+  font-family: var(--editorial);
   font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
+  font-weight: 400;
+  font-size: 47.4px;
   line-height: 43px;
   padding-top: 20px;
 }
@@ -392,8 +391,8 @@
   width: 90%;
   height: auto;
   bottom: 5px;
-  background: #f8f8ff;
-  box-shadow: 0px 40px 30px rgba(25, 25, 46, 0.04);
+  background: var(--panel);
+  box-shadow: var(--card-rim);
   border-radius: 8px;
 }
 
@@ -430,20 +429,20 @@
 }
 
 .homepage .events-frame .event-organizator .spec-text-author {
-  font-family: "GT Walsheim Pro";
+  font-family: var(--ui);
   font-style: normal;
   line-height: 34px;
-  color: #140342;
+  color: var(--ivory);
 }
 
 .homepage .events-frame .bott-left .text-desc {
   margin-top: 10px;
-  font-family: "GT Walsheim Pro";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
   line-height: 26px;
-  color: #4f547b;
+  color: var(--muted);
 }
 
 .homepage .events-frame .bott-left .bott-info {
@@ -462,12 +461,12 @@
   flex-direction: row;
   width: auto;
   height: 100%;
-  font-family: "GT Walsheim Pro";
+  font-family: var(--ui);
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
-  color: #4f547b;
+  color: var(--muted);
 }
 
 .homepage .events-frame .bott-info .bott-info-main img {
@@ -485,11 +484,110 @@
   height: 8px;
   text-align: center;
   opacity: 1;
-  background: #f8f8ff;
+  background: var(--edge);
   border-radius: 50%;
 }
 
 .homepage .events-frame .swiper-pagination-bullet-active {
-  background: #343434;
+  background: var(--champagne);
   border-radius: 50%;
 }
+
+.homepage .cards-frame .card {
+  background-color: var(--panel);
+  border-color: var(--edge);
+  box-shadow: var(--surface-shadow);
+  transition: border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.homepage .cards-frame .card:hover, .homepage .cards-frame .card:focus-within {
+  border-color: var(--champagne);
+  box-shadow: var(--card-glow);
+}
+
+.homepage .popular-dishes-frame .card h2,
+.homepage .new-products-frame .product-detail :is(.title, .price) {
+  font-family: var(--menu-type);
+  color: var(--ivory);
+  font-weight: 600;
+}
+
+.homepage .new-products-frame .product-detail .price { color: var(--champagne); }
+.homepage .new-products-frame .product-detail .views { color: var(--champagne); }
+.homepage .cards-frame .member-nickname { color: var(--ivory); }
+.homepage .event-title-speaker strong {
+  font-family: var(--editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.homepage .category-title {
+  position: relative;
+  text-shadow: 0 1px 14px rgb(215 181 134 / 20%);
+}
+
+.homepage .category-title::before, .homepage .category-title::after {
+  content: "";
+  position: absolute;
+  bottom: .4em;
+  width: clamp(18px, 5vw, 78px);
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--deep-gold) 75%, var(--highlight));
+}
+.homepage .category-title::before { right: calc(100% + 14px); }
+.homepage .category-title::after { left: calc(100% + 14px); transform: scaleX(-1); }
+.homepage .new-products-frame .category-title { font-style: italic; color: var(--champagne); }
+
+.homepage :is(.popular-dishes-frame, .new-products-frame) .card {
+  --Card-radius: 18px;
+  border-radius: var(--Card-radius);
+  overflow: hidden;
+}
+
+.homepage .popular-dishes-frame .MuiCardContent-root > .MuiStack-root {
+  width: auto;
+  margin-inline: calc(-1 * var(--Card-padding));
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--obsidian);
+}
+.homepage .popular-dishes-frame .MuiCardContent-root .MuiTypography-root:has(svg) {
+  justify-content: flex-end;
+  flex-shrink: 0;
+  padding-right: 14px;
+  color: var(--highlight);
+}
+.homepage .popular-dishes-frame .MuiCardContent-root .MuiSvgIcon-root,
+.homepage .new-products-frame .views .MuiSvgIcon-root { color: var(--champagne); }
+.homepage .popular-dishes-frame .card > .MuiCardOverflow-root {
+  width: auto;
+  background: var(--cognac);
+  border-color: var(--deep-gold);
+  color: var(--highlight);
+}
+.homepage .popular-dishes-frame .MuiCardOverflow-root :is(.MuiTypography-root, svg) {
+  font-family: var(--ui);
+  color: var(--highlight);
+}
+.homepage .popular-dishes-frame .card h2,
+.homepage .new-products-frame .product-detail .title {
+  display: grid;
+  align-content: center;
+  box-sizing: border-box;
+  min-height: calc(2lh + 8px);
+  padding: 4px 14px;
+  margin: 0;
+  background: var(--obsidian);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.14;
+  font-size: 1.22rem;
+  letter-spacing: -.015em;
+}
+
+.homepage .new-products-frame .product-detail :is(.price, .views) { color: var(--highlight); }
+.homepage .new-products-frame .product-detail .views { padding: 4px 14px 4px 8px; }
