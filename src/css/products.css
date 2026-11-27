@@ -45,7 +45,7 @@
   font-family: var(--display);
   font-style: normal;
   font-weight: 400;
-  font-size: 33.5px;
+  font-size: 47.3px;
   line-height: 43px;
   color: var(--ivory);
 }
@@ -344,11 +344,12 @@
   justify-content: space-between;
 }
 
-.products-page .products .brands-logo .category-title {
+.products-page .products .brands-logo .category-title,
+.products-page .products .address .title {
   font-family: var(--editorial);
   font-style: normal;
   font-weight: 400;
-  font-size: 47.3px;
+  font-size: clamp(50px, calc(48px + 0.5vw), 54px);
   line-height: 43px;
   color: var(--ivory);
 }
@@ -436,12 +437,66 @@
   align-items: center;
 }
 
-.products-page .products .address .title {
-  font-family: var(--editorial);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 43px;
+/* Place the ornaments in the existing section whitespace, outside the text boxes. */
+.products-page .products :is(.family-brands > .category-title, .address-area > .title) {
+  position: relative;
+}
+
+.products-page .products :is(.top-text > p, .family-brands > .category-title, .address-area > .title)::before,
+.products-page .products .top-text > p::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  width: 98%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.products-page .products .top-text > p::before {
+  bottom: calc(100% + 6px);
+  height: 26px;
+  background-image: url("./ottoman-heading.svg");
+}
+
+.products-page .products .top-text > p::after {
+  top: calc(100% + 6px);
+  --line-gap: 8px;
+  width: 60%;
+  height: 8px;
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 78 8'%3E%3Cpath d='m39 .5 3.5 3.5-3.5 3.5L35.5 4z' fill='%23D7B586'/%3E%3C/svg%3E");
+}
+
+.products-page .products .family-brands > .category-title::before {
+  bottom: calc(100% + 8px);
+  width: min(107.5%, calc(100vw - 32px));
+  --line-gap: 26.25px;
+  height: 35px;
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 142 28' stroke='%23D7B586' fill='none' stroke-linejoin='round'%3E%3Cg fill='%23D7B586'%3E%3Ccircle cx='50' cy='14' r='1.5'/%3E%3Ccircle cx='92' cy='14' r='1.5'/%3E%3C/g%3E%3Cpath d='M63 16a5.8 5.8 0 1 1 1.6-11A7 7 0 0 1 77.4 5 5.8 5.8 0 1 1 79 16v8H63zM63 20h16'/%3E%3C/svg%3E");
+}
+
+/* Only the side rules lengthen. The centered SVG keeps its native proportions. */
+.products-page .products .top-text > p::after,
+.products-page .products .family-brands > .category-title::before {
+  background-image: var(--motif), linear-gradient(to right,
+    var(--champagne) calc(50% - var(--line-gap)), transparent 0,
+    transparent calc(50% + var(--line-gap)), var(--champagne) 0);
+  background-size: auto 100%, 100% 1px;
+}
+
+.products-page .products .family-brands > .category-title em {
+  font-family: inherit;
+  font-style: italic;
+  color: var(--illumination);
+}
+
+.products-page .products .address-area > .title::before {
+  bottom: calc(100% + 6px);
+  width: 116%;
+  aspect-ratio: 122 / 35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 122 35' fill='none' stroke='%23D7B586' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath vector-effect='non-scaling-stroke' d='M1 33h120M21 33V12l2-9 2 9v21m-5-19h6M97 33V12l2-9 2 9v21m-5-19h6M28 33v-7q0-7 8-10 8 3 8 10v7m0 0V22q0-11 17-17 17 6 17 17v11m0 0v-7q0-7 8-10 8 3 8 10v7M61 5V1M44 23h34'/%3E%3C/svg%3E");
 }
 
 .products-page .products .about-left .about-left-desc {

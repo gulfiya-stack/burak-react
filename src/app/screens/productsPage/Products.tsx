@@ -311,7 +311,7 @@ export default function Products(props: ProductsProps) {
 
       <div className={"brands-logo"}>
         <Container className={"family-brands"}>
-          <Box className={"category-title"}>Our Family Brands</Box>
+          <Box className={"category-title"}>Our Family <em>Brands</em></Box>
           <Stack className={"brand-list"}>
             <Box className={"review-box"}>
               <img src={"/img/gurme.png"} />
