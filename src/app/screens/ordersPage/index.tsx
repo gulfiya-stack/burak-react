@@ -7,15 +7,14 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
-import "../../../css/order.css";
 import { Order, OrderInquiry } from "../../../lib/types/order";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
-import { retrieveFinishedOrders, retrievePausedOrders, retrieveProcessOrders } from "./selector";
-import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
+import { useGlobals } from "../../hooks/useGlobals";
+import "../../../css/order.css";
 
 /** REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -27,7 +26,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 export default function OrdersPage() {
   const [value, setValue] = useState("1");
-
+  const { orderBuilder } = useGlobals();
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -58,7 +57,7 @@ export default function OrdersPage() {
       .catch((err) => console.log(err))
 
 
-  }, [orderInquiry]);
+  }, [orderInquiry, orderBuilder]);
   /** HANDLERS */
 
   return (
@@ -81,8 +80,8 @@ export default function OrdersPage() {
               </Box>
             </Box>
             <Stack className={"order-main-content"}>
-              <PausedOrders />
-              <ProcessOrders />
+              <PausedOrders setValue={setValue} />
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>

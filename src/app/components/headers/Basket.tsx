@@ -15,6 +15,7 @@ import { sweetErrorHandling } from "../../../lib/sweetAlert";
 
 
 
+
 interface BasketProps {
   cartItems: CartItem[];
   onAdd: (item: CartItem) => void;
@@ -25,7 +26,7 @@ interface BasketProps {
 
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const { authMember } = useGlobals();
+  const { authMember, setOrderBuilder } = useGlobals();
   const history = useHistory();
 
   const itemsPrice: number = cartItems.reduce(
@@ -56,6 +57,7 @@ export default function Basket(props: BasketProps) {
       const order = new OrderService();
       await order.createOrder(cartItems);
       onDeleteAll();
+      setOrderBuilder(new Date());
       history.push("/orders");
 
     }
