@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,33 +8,21 @@ import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
 import "../../../css/order.css";
-import { Order } from "../../../lib/types/order";
+import { Order, OrderInquiry } from "../../../lib/types/order";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { retrieveFinishedOrders, retrievePausedOrders, retrieveProcessOrders } from "./selector";
 import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import OrderService from "../../services/OrderService";
 
-/** REDUX SLICE & SELECTOR */
+/** REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
   setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
   setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
 });
-
-
-
-const pausedOrdersRetriever = createSelector(
-  retrievePausedOrders,
-  (pausedOrders) => ({ pausedOrders }));
-
-const processOrdersRetriever = createSelector(
-  retrieveProcessOrders,
-  (processOrders) => ({ processOrders }));
-
-const finishedOrdersRetriever = createSelector(
-  retrieveFinishedOrders,
-  (finishedOrders) => ({ finishedOrders }));
 
 
 export default function OrdersPage() {
@@ -44,15 +32,34 @@ export default function OrdersPage() {
     setValue(newValue);
   };
 
+  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+    page: 1,
+    limit: 5,
+    orderStatus: OrderStatus.PAUSE,
+  });
+
+
   const { setPausedOrders, setProcessOrders, setFinishedOrders } = actionDispatch(useDispatch());
 
-  // const { pausedOrders } = useSelector(pausedOrdersRetriever);
-  // const { processOrders } = useSelector(processOrdersRetriever);
-  // const { finishedOrders } = useSelector(finishedOrdersRetriever);
+  useEffect(() => {
+    const order = new OrderService();
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
+      .then((data) => setPausedOrders(data))
+      .catch((err) => console.log(err))
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
+      .then((data) => setProcessOrders(data))
+      .catch((err) => console.log(err))
 
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
+      .then((data) => setFinishedOrders(data))
+      .catch((err) => console.log(err))
+
+
+  }, [orderInquiry]);
   /** HANDLERS */
-
-
 
   return (
     <div className={"order-page"}>

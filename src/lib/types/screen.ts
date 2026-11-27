@@ -8,6 +8,7 @@ import { Product } from "./product";
 
 
 export interface AppRootState {
+    ordersPage: any;
     // BUTUN ILOVA STATELAR(SCREEN)
     homePage: HomePageState;
     /*type 
@@ -39,4 +40,5 @@ export interface OrdersPageState {
     processOrders: Order[];
     finishedOrders: Order[];
 }
+
 

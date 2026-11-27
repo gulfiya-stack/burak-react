@@ -250,14 +250,14 @@
   box-sizing: border-box;
   padding: 0 14px 0 18px;
   width: 100%;
-  height: 64px;
+  height: 62px;
   display: flex;
   flex-direction: row;
   align-items: center;
   background: linear-gradient(135deg, #6b4631 0%, #b5875c 45%, #6f4a33 100%);
   color: var(--highlight);
   font-family: var(--editorial);
-  font-size: 32px;
+  font-size: 29px;
   line-height: 1;
   border: 1px solid var(--champagne);
   border-radius: 14px;
@@ -314,13 +314,16 @@
   color: var(--ivory);
 }
 
-.basket-info-box .product-price {
+.basket-frame .basket-info-box .product-price {
   width: 80px;
+  min-width: 0;
+  margin-block: 0;
+  overflow-wrap: anywhere;
   font-family: var(--menu-type);
   font-style: normal;
   font-weight: 600;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 23px;
+  line-height: 1.08;
   color: var(--champagne);
 }
 
@@ -357,7 +360,7 @@
 .basket-frame .basket-order {
   margin-top: 10px;
   width: 100%;
-  height: 64px;
+  min-height: 64px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -385,14 +388,15 @@
   box-shadow: 0 1px 4px rgb(215 181 134 / 22%);
 }
 
-.basket-order .price {
+.basket-frame .basket-order .price {
   width: 200px;
   display: flex;
   font-family: var(--menu-type);
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 30px;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
   color: var(--champagne);
 }
 
