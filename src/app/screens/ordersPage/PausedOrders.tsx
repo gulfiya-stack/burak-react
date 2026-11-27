@@ -14,7 +14,7 @@ import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 
-interface PausedOrderProps {
+interface PausedOrdersProps {
   setValue: (input: string) => void;
 };
 
@@ -25,7 +25,7 @@ const pausedOrdersRetriever = createSelector(
   (pausedOrders) => ({ pausedOrders }));
 
 
-export default function PausedOrders(props: PausedOrderProps) {
+export default function PausedOrders(props: PausedOrdersProps) {
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
   const { authMember, setOrderBuilder } = useGlobals();
   const { setValue } = props;
