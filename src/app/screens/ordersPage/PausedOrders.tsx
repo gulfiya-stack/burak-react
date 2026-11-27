@@ -76,14 +76,14 @@ export default function PausedOrders() {
           );
         })}
 
-        {(!pausedOrders || pausedOrders.length === 0) && (
+        {!pausedOrders || (pausedOrders.length === 0 && (
           <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
             <img
               src={"/icons/noimage-list.svg"}
               style={{ width: 300, height: 300 }}
             />
           </Box>
-        )}
+        ))}
       </Stack>
     </TabPanel>
   );
